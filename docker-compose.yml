@@ -1,30 +1,47 @@
+# This docker-compose file creates a network with two services:
+# db: MySQL database service
+# phpmyadmin: PHPMyAdmin service for managing the database
+
 services:
   db:
+    # Use official MySQL image
     image: mysql
+    # Restart the service unless explicitly stopped
     restart: unless-stopped
+    # Set the root password for MySQL
     environment:
       MYSQL_ROOT_PASSWORD: password
+    # Use a volume to persist the database data
     volumes:
-      - db
-  
+      - db:/var/lib/mysql
+    # Expose the port 3306 for MySQL
     ports:
       - 3306:3306
+    # Add the service to the 'microservices-net' network
     networks:
       - microservices-net
     
   phpmyadmin:
+    # Use official PHPMyAdmin image
     image: phpmyadmin
-    restart: always
+    # Always restart the service
+    restart: unless-stopped
+    # Expose the port 5050 for PHPMyAdmin
     ports:
-      - 8080:80
+      - 5050:80
+    # Set the environment variables for PHPMyAdmin
     environment:
-      - PMA_ARBITRARY: 1
-      - PMA_PORT: 3306
+      PMA_ARBITRARY: 1
+      PMA_HOST: db
+      PMA_PORT: 3306
+      MYSQL_ROOT_PASSWORD: password
+    networks:
+      - microservices-net
 
 
 networks:
   microservices-net:
+    # Use bridge network driver
     driver: bridge
-
 volumes:
   db:
