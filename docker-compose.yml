@@ -1,0 +1,30 @@
+services:
+  db:
+    image: mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+    volumes:
+      - db
+  
+    ports:
+      - 3306:3306
+    networks:
+      - microservices-net
+    
+  phpmyadmin:
+    image: phpmyadmin
+    restart: always
+    ports:
+      - 8080:80
+    environment:
+      - PMA_ARBITRARY: 1
+      - PMA_PORT: 3306
+
+
+networks:
+  microservices-net:
+    driver: bridge
+
+volumes:
+  db:
