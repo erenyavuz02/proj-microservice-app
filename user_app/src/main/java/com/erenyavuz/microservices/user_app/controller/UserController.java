@@ -8,10 +8,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.erenyavuz.microservices.user_app.dto.UserRequest;
+import com.erenyavuz.microservices.user_app.handler.GlobalExceptionHandler;
+import com.erenyavuz.microservices.user_app.handler.exception.CustomerNotFoundException;
 import com.erenyavuz.microservices.user_app.service.UserService;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -33,6 +37,25 @@ public class UserController {
         userService.createUser(userRequest);
 
         return ResponseEntity.ok("User created successfully");
+    }
+
+
+/**
+     * This function validates if the sent user information exists
+     * 
+     * @param username the username of the user
+     * @param password the password of the user
+     * @return ResponseEntity with the validation result
+     */
+    @GetMapping("/validate")
+    public ResponseEntity<Boolean> getMethodName(
+        @RequestParam String username,
+        @RequestParam String password
+    ) {
+
+        return ResponseEntity.ok(userService.isValidUser(username, password));
+        // Check if the user is valid
+        
     }
     
 }
