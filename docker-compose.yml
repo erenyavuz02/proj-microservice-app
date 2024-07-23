@@ -20,11 +20,12 @@ services:
     # Add the service to the 'microservices-net' network
     networks:
       - microservices-net
+
+
     
   phpmyadmin:
     # Use official PHPMyAdmin image
     image: phpmyadmin
-    # Always restart the service
     restart: unless-stopped
     # Expose the port 5050 for PHPMyAdmin
     ports:
@@ -35,6 +36,23 @@ services:
       PMA_HOST: db
       PMA_PORT: 3306
       MYSQL_ROOT_PASSWORD: password
+    networks:
+      - microservices-net
+
+  
+  configserver:
+    image: configserver:latest
+    restart: unless-stopped
+    ports:
+      - 8888:8888
+    networks:
+      - microservices-net
+
+  discovery:
+    image: discovery-server:latest
+    restart: unless-stopped
+    ports:
+      - 8761:8761
     networks:
       - microservices-net
 
