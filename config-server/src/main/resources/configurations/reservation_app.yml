@@ -1,0 +1,17 @@
+spring:
+    jpa:
+        hibernate:
+            ddl-auto: create
+        show-sql: true
+    datasource:
+        url: jdbc:mysql://localhost:3306/reservation_app
+
+        username: root
+        password: password
+        driverClassName: com.mysql.cj.jdbc.Driver
+
+
+
+
+server:
+    port: 8091

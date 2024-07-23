@@ -1,5 +1,7 @@
 {
     "java.compile.nullAnalysis.mode": "automatic",
     "maven.view": "hierarchical",
-    "java.project.sourcePaths": []
+    "java.project.sourcePaths": [],
+    "java.dependency.syncWithFolderExplorer": false,
+    "java.configuration.updateBuildConfiguration": "interactive"
 }

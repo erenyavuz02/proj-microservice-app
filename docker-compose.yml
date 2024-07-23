@@ -39,22 +39,6 @@ services:
     networks:
       - microservices-net
 
-  
-  configserver:
-    image: configserver:latest
-    restart: unless-stopped
-    ports:
-      - 8888:8888
-    networks:
-      - microservices-net
-
-  discovery:
-    image: discovery-server:latest
-    restart: unless-stopped
-    ports:
-      - 8761:8761
-    networks:
-      - microservices-net
 
 
 networks:
