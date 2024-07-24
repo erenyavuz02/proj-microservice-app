@@ -3,11 +3,13 @@ package com.erenyavuz.microservices.reservation_app.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.erenyavuz.microservices.reservation_app.dto.ReservationRequest;
 import com.erenyavuz.microservices.reservation_app.service.ReservationService;
 
+import jakarta.ws.rs.core.Response;
 import lombok.RequiredArgsConstructor;
 
 @Controller
@@ -20,8 +22,9 @@ public class ReservationController {
 
 
     @PostMapping("/create")
-    public void createReservation(ReservationRequest reservationRequest) {
+    public Response createReservation(@RequestBody ReservationRequest reservationRequest) {
         reservationService.createReservation(reservationRequest);
+        return Response.ok().build();
     }
 
 

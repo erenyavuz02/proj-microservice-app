@@ -8,8 +8,9 @@ import com.erenyavuz.microservices.reservation_app.Reservation.ReservationReposi
 import com.erenyavuz.microservices.reservation_app.dto.ReservationRequest;
 import com.erenyavuz.microservices.reservation_app.dto.UserValidationResponse;
 import com.erenyavuz.microservices.reservation_app.entity.ReservationEntity;
+import com.erenyavuz.microservices.reservation_app.handler.exception.InvalidUserException;
 
-import jakarta.ws.rs.core.Response;
+
 
 @Service
 public class ReservationService {
@@ -20,24 +21,24 @@ public class ReservationService {
     @Autowired
     ExternalApiService externalApiService;
 
-    // Fetching user validation from external API
     public void createReservation(ReservationRequest reservationRequest) {
-
-        // Fetching user validation from external API
         String username = reservationRequest.username();
         String password = reservationRequest.password();
-        
-    // Implementing code to fetch user validation from external API
+
+        if (username == null || password == null) {
+            throw new IllegalArgumentException("Username and password cannot be null");
+        }
+
         UserValidationResponse response = externalApiService.validateUser(username, password);
-        if (response.isValid()) {
-            ReservationEntity reservationEntity = ReservationEntity.builder()
+        if (!response.isValid()) {
+            throw new InvalidUserException("User not found");
+        }
+
+        ReservationEntity reservationEntity = ReservationEntity.builder()
                 .reservationId(reservationRequest.reservationId())
                 .username(username)
                 .build();
-            reservationRepository.save(reservationEntity);
-        } else {
-            // Handle invalid user response
-            throw new InvalidUserException("User not fo");}
-
+        reservationRepository.save(reservationEntity);
     }
+
 }
