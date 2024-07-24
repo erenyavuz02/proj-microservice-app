@@ -41,6 +41,16 @@
             "projectName": "reservation_app",
             "args": "",
             "envFile": "${workspaceFolder}/.env"
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-FlightAppApplication<flight_app>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.erenyavuz.microservices.flight_app.FlightAppApplication",
+            "projectName": "flight_app",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
         }
     ]
 }
