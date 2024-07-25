@@ -53,7 +53,18 @@ public class UserController {
         @RequestParam String password
     ) {
 
-        return ResponseEntity.ok(userService.isValidUser(username, password));
+        if (username == null || password == null) {
+            throw new CustomerNotFoundException("Username and password cannot be null");
+        }
+
+        Boolean isValid = userService.isValidUser(username, password);
+
+        if (!isValid) {
+            throw new CustomerNotFoundException("User not found");
+        }
+
+
+        return ResponseEntity.ok(isValid);
         // Check if the user is valid
         
     }

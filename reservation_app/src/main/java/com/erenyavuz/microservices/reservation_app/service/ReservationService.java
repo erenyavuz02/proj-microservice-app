@@ -4,11 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import com.erenyavuz.microservices.reservation_app.Reservation.ReservationRepository;
 import com.erenyavuz.microservices.reservation_app.dto.ReservationRequest;
 import com.erenyavuz.microservices.reservation_app.dto.UserValidationResponse;
 import com.erenyavuz.microservices.reservation_app.entity.ReservationEntity;
 import com.erenyavuz.microservices.reservation_app.handler.exception.InvalidUserException;
+import com.erenyavuz.microservices.reservation_app.repository.ReservationRepository;
 
 
 

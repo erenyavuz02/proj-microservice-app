@@ -6,6 +6,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.reactive.function.client.WebClientResponseException;
 
 import com.erenyavuz.microservices.reservation_app.dto.UserValidationResponse;
+import com.erenyavuz.microservices.reservation_app.handler.exception.InvalidUserException;
 
 import reactor.core.publisher.Mono;
 
@@ -35,7 +36,7 @@ public class ExternalApiService {
 
             return response.block();
         } catch (WebClientResponseException ex) {
-            throw new RuntimeException("Failed to validate user", ex);
+            throw new InvalidUserException("User not found");
         }
     }
 }

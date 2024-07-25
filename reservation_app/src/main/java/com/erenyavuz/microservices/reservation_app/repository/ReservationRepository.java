@@ -1,4 +1,4 @@
-package com.erenyavuz.microservices.reservation_app.Reservation;
+package com.erenyavuz.microservices.reservation_app.repository;
 
 import java.util.Optional;
 
