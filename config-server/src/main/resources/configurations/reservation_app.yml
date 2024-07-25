@@ -10,6 +10,14 @@ spring:
         password: password
         driverClassName: com.mysql.cj.jdbc.Driver
 
+    kafka:
+            bootstrap-servers: localhost:9092
+            producer:
+                key-serializer: org.apache.kafka.common.serialization.StringSerializer
+                value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+                properties:
+                    spring.json.type.mapping: orderConfirmation:com.erenyavuz.microservices.flight_app.dto.FlightConfirmation
+
 
 
 

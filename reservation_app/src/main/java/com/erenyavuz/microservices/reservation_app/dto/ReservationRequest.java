@@ -5,6 +5,8 @@ import jakarta.validation.constraints.NotNull;
 public record ReservationRequest(
     @NotNull(message = "ReservationId cannot be null")
     String reservationId,
+    @NotNull(message = "FlightId cannot be null")
+    String flightId,
     @NotNull(message = "Username cannot be null")
     String username,
     @NotNull(message = "Password cannot be null")

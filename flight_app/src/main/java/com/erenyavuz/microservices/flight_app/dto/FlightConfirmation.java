@@ -6,7 +6,9 @@ String flightNumber,
 
 String flightDate,
 
-String seatNumber
+String departurePort,
+
+String arrivalPort
 
 ) {
 
