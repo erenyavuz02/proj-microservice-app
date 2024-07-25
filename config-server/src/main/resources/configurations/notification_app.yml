@@ -1,0 +1,14 @@
+spring:
+
+  kafka:
+          bootstrap-servers: localhost:9092
+          consumer:
+              key-serializer: org.apache.kafka.common.serialization.StringSerializer
+              value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+              properties:
+                  spring.json.type.mapping: orderConfirmation:com.erenyavuz.microservices.flight_app.dto.FlightConfirmation
+
+
+
+server:
+    port: 8093
