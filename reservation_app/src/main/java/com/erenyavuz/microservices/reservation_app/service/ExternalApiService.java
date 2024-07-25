@@ -39,4 +39,10 @@ public class ExternalApiService {
             throw new InvalidUserException("User not found");
         }
     }
+
+
+    public FlightDetails getFlightDetails(FlightRequest flightRequest) {
+        if (flightNumber == null) {
+            throw new IllegalArgumentException("Flight number cannot be null");
+        }
 }
