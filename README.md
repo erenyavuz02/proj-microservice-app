@@ -7,3 +7,6 @@ This is a demo project for me to graps concepts of microservice architectures, s
 # Project Structure
 
 ![enter image description here](https://github.com/erenyavuz02/proj-microservice-app/blob/main/resources/images/microservice_demo_project.png?raw=true)
+
+# Request Mapping
+![enter image description here](https://github.com/erenyavuz02/proj-microservice-app/blob/main/resources/images/request_return.png?raw=true)
