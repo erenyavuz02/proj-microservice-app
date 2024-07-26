@@ -5,6 +5,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.reactive.function.client.WebClientResponseException;
 
+import com.erenyavuz.microservices.reservation_app.dto.FlightDetails;
+import com.erenyavuz.microservices.reservation_app.dto.FlightRequest;
 import com.erenyavuz.microservices.reservation_app.dto.UserValidationResponse;
 import com.erenyavuz.microservices.reservation_app.handler.exception.InvalidUserException;
 
@@ -42,7 +44,25 @@ public class ExternalApiService {
 
 
     public FlightDetails getFlightDetails(FlightRequest flightRequest) {
-        if (flightNumber == null) {
+        if (flightRequest.flightNumber() == null) {
             throw new IllegalArgumentException("Flight number cannot be null");
         }
+
+        String url = "http://localhost:8090/api/flight/get";
+
+        try {
+            Mono<FlightDetails> response = webClientBuilder
+                .build()
+                .post()
+                .uri(url)
+                .bodyValue(flightRequest)
+                .retrieve()
+                .bodyToMono(FlightDetails.class);  
+
+            return response.block();
+        } catch (WebClientResponseException ex) {
+            throw new IllegalArgumentException("Flight not found");
+        }
+
+    }
 }

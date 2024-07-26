@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import com.erenyavuz.microservices.flight_app.dto.FlightConfirmation;
 import com.erenyavuz.microservices.flight_app.dto.FlightRequest;
 import com.erenyavuz.microservices.flight_app.dto.UserValidationResponse;
+import com.erenyavuz.microservices.flight_app.entity.Flight;
 import com.erenyavuz.microservices.flight_app.handler.exception.InvalidUserException;
 import com.erenyavuz.microservices.flight_app.repository.FlightRepository;
 
@@ -39,6 +40,13 @@ public class FlightService {
         return flightRepository.findById(flightRequest.flightId())
             .map(flight -> new FlightConfirmation(flight.getFlightNumber(), flight.getFlightDate(), flight.getDeparturePort(), flight.getArrivalPort()))
             .orElse(null);
+    }
+
+    public void addFlight(FlightConfirmation flightConfirmation) {
+
+        Flight flight = flightConfirmation.toFlight();
+
+        flightRepository.save(flightConfirmation.toFlight());
     }
 
 
