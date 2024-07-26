@@ -44,7 +44,7 @@ public class ReservationService {
         if (flightDetails == null) {
             throw new IllegalArgumentException("Flight not found");
         }
-
+        
         ReservationEntity reservationEntity = ReservationEntity.builder()
                 .reservationId(reservationRequest.reservationId())
                 .username(username)

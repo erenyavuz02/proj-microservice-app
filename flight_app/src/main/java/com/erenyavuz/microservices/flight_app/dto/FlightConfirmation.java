@@ -22,7 +22,12 @@ String arrivalPort
 
 
     public Flight toFlight() {
-        return new Flight(flightNumber, flightDate, departurePort, arrivalPort);
+        return new Flight(
+                flightNumber,
+                flightDate,
+                departurePort,
+                arrivalPort
+        );
     }
 
     
