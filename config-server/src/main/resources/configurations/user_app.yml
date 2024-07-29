@@ -4,7 +4,7 @@ spring:
             ddl-auto: create
         show-sql: true
     datasource:
-        url: jdbc:mysql://localhost:3306/user_app
+        url: jdbc:mysql://db:3306/user_app
 
         username: root
         password: password

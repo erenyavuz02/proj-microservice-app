@@ -1,8 +1,11 @@
 package com.erenyavuz.microservices.reservation_app.dto;
 
+import lombok.Builder;
+
+@Builder
 public record ReservationConfirmation(
         String PNR,
-        String flightNumber,
+        Long flightNumber,
         String flightDate,
         String departurePort,
         String arrivalPort

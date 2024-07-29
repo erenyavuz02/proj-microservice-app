@@ -20,7 +20,7 @@ services:
     # Add the service to the 'microservices-net' network
     networks:
       - microservices-net
-
+    container_name: db
 
     
   phpmyadmin:
@@ -53,7 +53,6 @@ services:
   kafka:
     image: apache/kafka:latest
     container_name: kafka
-    hostname: kafka
     ports:
       - 9092:9092
     depends_on:
@@ -61,15 +60,62 @@ services:
     networks:
       - microservices-net
 
+  config:
+    image: configserver:latest
+    container_name: configserver
+    ports: 
+      - 8888:8888
+    networks:
+      - microservices-net
 
+  discovery:
+    image: discovery-server:latest
+    container_name: discoveryserver
+    ports: 
+      - 8761:8761
+    networks:
+      - microservices-net
+    depends_on:
+      - config
+    environment:
+      - SPRING_CONFIG_IMPORT=optional:configserver:http://configserver:8888
       
+
   mail-dev:
     image: maildev/maildev
     ports:
       - 1080:1080
       - 1025:1025
 
+  user:
+    image: user_app
+    ports:
+      - 8090:8090
+    networks:
+      - microservices-net
+    depends_on:
+      - config
+      - discovery
 
+  flight:
+    image: flight_app
+    ports:
+      - 8092:8092
+    networks:
+      - microservices-net
+    depends_on:
+      - config
+      - discovery
+
+  reservation:
+    image: reservation_app
+    ports:
+      - 8091:8091
+    networks:
+      - microservices-net
+    depends_on:
+      - config
+      - discovery
 
 networks:
   microservices-net:

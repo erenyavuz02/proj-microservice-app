@@ -43,7 +43,7 @@ public class FlightController {
     @GetMapping("/get")
     public ResponseEntity<FlightConfirmation> getMethodName(@RequestBody FlightRequest flightRequest) {
 
-
+        System.out.println(flightRequest);
 
         FlightConfirmation flight = flightService.getFlightByFlightNumber(flightRequest);
         

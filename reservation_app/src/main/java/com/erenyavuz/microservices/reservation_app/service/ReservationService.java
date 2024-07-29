@@ -5,9 +5,11 @@ import org.springframework.stereotype.Service;
 
 import com.erenyavuz.microservices.reservation_app.dto.FlightDetails;
 import com.erenyavuz.microservices.reservation_app.dto.FlightRequest;
+import com.erenyavuz.microservices.reservation_app.dto.ReservationConfirmation;
 import com.erenyavuz.microservices.reservation_app.dto.ReservationRequest;
 import com.erenyavuz.microservices.reservation_app.dto.UserValidationResponse;
-import com.erenyavuz.microservices.reservation_app.entity.ReservationEntity;
+import com.erenyavuz.microservices.reservation_app.entity.Reservation;
+import com.erenyavuz.microservices.reservation_app.handler.exception.FlightNotFoundException;
 import com.erenyavuz.microservices.reservation_app.handler.exception.InvalidUserException;
 import com.erenyavuz.microservices.reservation_app.repository.ReservationRepository;
 
@@ -22,7 +24,7 @@ public class ReservationService {
     @Autowired
     ExternalApiService externalApiService;
 
-    public void createReservation(ReservationRequest reservationRequest) {
+    public ReservationConfirmation createReservation(ReservationRequest reservationRequest) {
         String username = reservationRequest.username();
         String password = reservationRequest.password();
 
@@ -42,14 +44,26 @@ public class ReservationService {
 
         FlightDetails flightDetails = externalApiService.getFlightDetails(flightRequest);
         if (flightDetails == null) {
-            throw new IllegalArgumentException("Flight not found");
+            throw new FlightNotFoundException("Flight not found");
         }
         
-        ReservationEntity reservationEntity = ReservationEntity.builder()
+        Reservation reservation = Reservation.builder()
                 .reservationId(reservationRequest.reservationId())
                 .username(username)
                 .build();
-        reservationRepository.save(reservationEntity);
+        reservationRepository.save(reservation);
+
+        ReservationConfirmation reservationConfirmation = ReservationConfirmation.builder()
+                .PNR(reservationRequest.reservationId())
+                .flightNumber(flightRequest.flightNumber())
+                .flightDate(flightDetails.flightDate())
+                .departurePort(flightDetails.departurePort())
+                .arrivalPort(flightDetails.arrivalPort())
+                .build();
+
+        return reservationConfirmation;
+
+
     }
 
 }

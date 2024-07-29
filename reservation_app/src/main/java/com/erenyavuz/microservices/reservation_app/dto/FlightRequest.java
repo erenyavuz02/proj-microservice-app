@@ -5,7 +5,7 @@ import jakarta.validation.constraints.NotNull;
 public record FlightRequest(
 
     @NotNull(message = "FlightNumber cannot be null")
-    String flightNumber,
+    Long flightNumber,
     @NotNull(message = "Username cannot be null")
     String username,
     @NotNull(message = "Password cannot be null")

@@ -4,14 +4,14 @@ spring:
             ddl-auto: create
         show-sql: true
     datasource:
-        url: jdbc:mysql://localhost:3306/reservation_app
+        url: jdbc:mysql://db:3306/reservation_app
 
         username: root
         password: password
         driverClassName: com.mysql.cj.jdbc.Driver
 
     kafka:
-            bootstrap-servers: localhost:9092
+            bootstrap-servers: kafka:9092
             producer:
                 key-serializer: org.apache.kafka.common.serialization.StringSerializer
                 value-serializer: org.springframework.kafka.support.serializer.JsonSerializer

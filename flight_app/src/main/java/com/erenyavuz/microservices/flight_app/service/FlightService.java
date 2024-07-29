@@ -36,7 +36,7 @@ public class FlightService {
 
 
 
-        return flightRepository.findById(flightRequest.flightId())
+        return flightRepository.findById(flightRequest.flightNumber())
             .map(flight -> new FlightConfirmation(flight.getFlightNumber(), flight.getFlightDate(), flight.getDeparturePort(), flight.getArrivalPort()))
             .orElse(null);
     }

@@ -11,7 +11,7 @@ import lombok.*;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ReservationEntity {
+public class Reservation {
 
 
     @Id

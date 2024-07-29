@@ -7,7 +7,7 @@ import jakarta.validation.constraints.NotNull;
 public record FlightConfirmation(    
     
 @NotNull(message = "FlightNumber cannot be null")
-String flightNumber,
+Long flightNumber,
 
 @NotNull(message = "FlightDate cannot be null")
 String flightDate,

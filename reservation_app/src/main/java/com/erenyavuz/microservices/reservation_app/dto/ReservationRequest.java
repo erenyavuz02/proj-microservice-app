@@ -6,7 +6,7 @@ public record ReservationRequest(
     @NotNull(message = "ReservationId cannot be null")
     String reservationId,
     @NotNull(message = "FlightNumber cannot be null")
-    String flightNumber,
+    Long flightNumber,
     @NotNull(message = "Username cannot be null")
     String username,
     @NotNull(message = "Password cannot be null")
