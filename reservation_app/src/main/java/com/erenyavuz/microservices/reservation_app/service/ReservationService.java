@@ -7,7 +7,7 @@ import com.erenyavuz.microservices.reservation_app.dto.FlightDetails;
 import com.erenyavuz.microservices.reservation_app.dto.FlightRequest;
 import com.erenyavuz.microservices.reservation_app.dto.ReservationConfirmation;
 import com.erenyavuz.microservices.reservation_app.dto.ReservationRequest;
-import com.erenyavuz.microservices.reservation_app.dto.UserValidationResponse;
+import com.erenyavuz.microservices.reservation_app.dto.UserDetails;
 import com.erenyavuz.microservices.reservation_app.entity.Reservation;
 import com.erenyavuz.microservices.reservation_app.handler.exception.FlightNotFoundException;
 import com.erenyavuz.microservices.reservation_app.handler.exception.InvalidUserException;
@@ -32,8 +32,8 @@ public class ReservationService {
             throw new IllegalArgumentException("Username and password cannot be null");
         }
 
-        UserValidationResponse response = externalApiService.validateUser(username, password);
-        if (!response.isValid()) {
+        UserDetails userDetails = externalApiService.validateUser(username, password);
+        if (userDetails == null) {
             throw new InvalidUserException("User not found");
         }
 
@@ -59,6 +59,9 @@ public class ReservationService {
                 .flightDate(flightDetails.flightDate())
                 .departurePort(flightDetails.departurePort())
                 .arrivalPort(flightDetails.arrivalPort())
+                .email(userDetails.email())
+                .name(userDetails.name())
+                .surname(userDetails.surname())
                 .build();
 
         return reservationConfirmation;
