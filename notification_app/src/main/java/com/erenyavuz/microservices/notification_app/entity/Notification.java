@@ -6,12 +6,13 @@ import com.erenyavuz.microservices.notification_app.dto.ReservationConfirmation;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-
+@Data
 public class Notification {
 
     private String id;
