@@ -10,7 +10,11 @@ public record UserRequest(
     @NotNull(message = "Password cannot be null")
     String password,
     @NotNull @Email(message = "Email cannot be null")
-    String email
+    String email,
+    @NotNull(message = "Name cannot be null")
+    String name,
+    @NotNull(message = "Surname cannot be null")
+    String surname
     
 ) {
 

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 
+import com.erenyavuz.microservices.user_app.dto.UserDetails;
 import com.erenyavuz.microservices.user_app.dto.UserRequest;
 import com.erenyavuz.microservices.user_app.entity.UserEntity;
 import com.erenyavuz.microservices.user_app.handler.exception.CustomerNotFoundException;
@@ -27,6 +28,8 @@ public class UserService {
             .username(userRequest.username())
             .password(userRequest.password())
             .email(userRequest.email())
+            .name(userRequest.name())
+            .surname(userRequest.surname())
             .build();
         
         userRepository.save(userEntity);
@@ -45,5 +48,19 @@ public class UserService {
 
         Optional<UserEntity> userEntity = userRepository.findByUsername(username);
         return userEntity.map(entity -> entity.getPassword().equals(password)).orElseThrow(() -> new CustomerNotFoundException("User not found"));
+    }
+
+    public UserDetails getUserDetails(String username, String password) {
+        Optional<UserEntity> userEntity = userRepository.findByUsername(username);
+
+        UserDetails userDetails = UserDetails.builder()
+            .name(userEntity.get().getName())
+            .surname(userEntity.get().getSurname())
+            .email(userEntity.get().getEmail())
+            .build();
+
+
+        return userDetails;
+
     }
 }

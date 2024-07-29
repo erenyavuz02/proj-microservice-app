@@ -3,21 +3,19 @@ package com.erenyavuz.microservices.user_app.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.erenyavuz.microservices.user_app.dto.UserDetails;
 import com.erenyavuz.microservices.user_app.dto.UserRequest;
-import com.erenyavuz.microservices.user_app.handler.GlobalExceptionHandler;
 import com.erenyavuz.microservices.user_app.handler.exception.CustomerNotFoundException;
 import com.erenyavuz.microservices.user_app.service.UserService;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 
 
 
@@ -48,7 +46,7 @@ public class UserController {
      * @return ResponseEntity with the validation result
      */
     @GetMapping("/validate")
-    public ResponseEntity<Boolean> getMethodName(
+    public ResponseEntity<UserDetails> getMethodName(
         @RequestParam String username,
         @RequestParam String password
     ) {
@@ -57,14 +55,14 @@ public class UserController {
             throw new CustomerNotFoundException("Username and password cannot be null");
         }
 
-        Boolean isValid = userService.isValidUser(username, password);
+        UserDetails userDetails =userService.getUserDetails(username, password);
 
-        if (!isValid) {
+        if (userDetails == null) {
             throw new CustomerNotFoundException("User not found");
         }
 
 
-        return ResponseEntity.ok(isValid);
+        return ResponseEntity.ok(userDetails);
         // Check if the user is valid
         
     }
