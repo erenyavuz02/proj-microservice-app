@@ -15,8 +15,6 @@ spring:
     mail:
         host: maildev
         port: 1025
-        username: eren
-        password: eren
         properties:
             mail:
                 smtp:

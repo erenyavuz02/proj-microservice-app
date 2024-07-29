@@ -23,7 +23,7 @@ public class NotificationConsumer {
 
         //TODO: send email
 
-        emailService.sendEmail("eyavuz21@ku.edu.tr", "Eren");
+        emailService.sendEmail(message);
 
     }
 }

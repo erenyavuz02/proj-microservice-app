@@ -15,7 +15,10 @@ public record ReservationConfirmation(
     Long flightNumber,
     String flightDate,
     String departurePort,
-    String arrivalPort
+    String arrivalPort,
+    String email,
+    String name,
+    String surname
 ) {
 
 }
