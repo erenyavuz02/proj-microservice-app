@@ -14,7 +14,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class NotificationConsumer {
     
-
+    
     private final EmailService emailService;
 
     @KafkaListener(topics = "reservation-topic")
@@ -22,8 +22,11 @@ public class NotificationConsumer {
         log.info("Received reservation success notification: {}", message);
 
         //TODO: send email
+        System.out.println(message);
 
         emailService.sendEmail(message);
+
+        System.out.println("Mail sent successfully");
 
     }
 }

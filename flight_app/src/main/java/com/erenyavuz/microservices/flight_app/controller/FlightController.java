@@ -40,7 +40,7 @@ public class FlightController {
         return ResponseEntity.ok(" Flight added successfully");
     }
 
-    @GetMapping("/get")
+    @PostMapping("/get")
     public ResponseEntity<FlightConfirmation> getMethodName(@RequestBody FlightRequest flightRequest) {
 
         System.out.println(flightRequest);

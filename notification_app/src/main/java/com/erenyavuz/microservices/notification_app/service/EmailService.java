@@ -21,7 +21,7 @@ public class EmailService {
     
     private final JavaMailSender emailSender;
     private final SpringTemplateEngine templateEngine;
-
+    
 
     @Async
     public void sendEmail(ReservationConfirmation reservation) {

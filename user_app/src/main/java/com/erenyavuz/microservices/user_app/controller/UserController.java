@@ -55,12 +55,11 @@ public class UserController {
             throw new CustomerNotFoundException("Username and password cannot be null");
         }
 
+        
         UserDetails userDetails =userService.getUserDetails(username, password);
 
-        if (userDetails == null) {
-            throw new CustomerNotFoundException("User not found");
-        }
 
+        System.out.println(userDetails);
 
         return ResponseEntity.ok(userDetails);
         // Check if the user is valid

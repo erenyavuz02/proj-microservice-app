@@ -40,7 +40,7 @@ services:
       - microservices-net
 
   zookeeper:
-    image: confluentinc/cp-zookeeper:latest
+    image: confluentinc/cp-zookeeper:7.4.4
     container_name: zookeeper
     environment:
       ZOOKEEPER_CLIENT_PORT: 2181
@@ -51,12 +51,18 @@ services:
       - microservices-net
 
   kafka:
-    image: apache/kafka:latest
-    container_name: kafka
-    ports:
-      - 9092:9092
+    image: confluentinc/cp-kafka:7.4.4
     depends_on:
       - zookeeper
+    ports:
+      - 29092:29092
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092,PLAINTEXT_HOST://localhost:29092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
     networks:
       - microservices-net
 
@@ -87,9 +93,12 @@ services:
     ports:
       - 1080:1080
       - 1025:1025
+    networks:
+      - microservices-net
 
   user:
     image: user_app
+    container_name: user
     ports:
       - 8090:8090
     networks:
@@ -99,6 +108,7 @@ services:
       - discovery
 
   flight:
+    container_name: flight
     image: flight_app
     ports:
       - 8092:8092
@@ -109,9 +119,21 @@ services:
       - discovery
 
   reservation:
+    container_name: reservation
     image: reservation_app
     ports:
       - 8091:8091
+    networks:
+      - microservices-net
+    depends_on:
+      - config
+      - discovery
+
+  notification:
+    container_name: notification
+    image: notification_app
+    ports:
+      - 8093:8093
     networks:
       - microservices-net
     depends_on:

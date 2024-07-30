@@ -26,7 +26,7 @@ public class ExternalApiService {
             throw new IllegalArgumentException("Username and password cannot be null");
         }
 
-        String url = "http://localhost:8090/api/user/validate?username={username}&password={password}";
+        String url = "http://user:8090/api/user/validate?username={username}&password={password}";
 
         try {
             Mono<UserDetails> response = webClientBuilder
@@ -48,7 +48,7 @@ public class ExternalApiService {
             throw new IllegalArgumentException("Flight number cannot be null");
         }
 
-        String url = "http://localhost:8090/api/flight/get";
+        String url = "http://flight:8092/api/flight/get";
 
         try {
             Mono<FlightDetails> response = webClientBuilder

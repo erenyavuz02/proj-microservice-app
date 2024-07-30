@@ -53,6 +53,10 @@ public class UserService {
     public UserDetails getUserDetails(String username, String password) {
         Optional<UserEntity> userEntity = userRepository.findByUsername(username);
 
+        if (!userEntity.isPresent()) {
+            throw new CustomerNotFoundException("User not found");
+        }
+
         UserDetails userDetails = UserDetails.builder()
             .name(userEntity.get().getName())
             .surname(userEntity.get().getSurname())

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reservation Confirmation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+        .container {
+            width: 80%;
+            margin: auto;
+            padding: 20px;
+            background-color: #f4f4f4;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+        h1 {
+            color: #0056b3;
+        }
+        .details {
+            margin-bottom: 20px;
+        }
+        .details p {
+            margin: 0;
+            padding: 10px 0;
+        }
+        .footer {
+            font-size: 0.8em;
+            color: #888;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Reservation Confirmation</h1>
+        <p>Dear <span th:text="${customerName}"/> <span th:text="${customerSurname}"/>,</p>
+        <p>Thank you for choosing our service. We are pleased to confirm your reservation. Here are the details:</p>
+
+        <div class="details">
+            <p><strong>Flight Number:</strong> <span th:text="${flightNumber}"/></p>
+            <p><strong>Departure Port:</strong> <span th:text="${departurePort}"/></p>
+            <p><strong>Arrival Port:</strong> <span th:text="${arrivalPort}"/></p>
+            <p><strong>Flight Date:</strong> <span th:text="${flightDate}"/></p>
+            <p><strong>PNR:</strong> <span th:text="${pnr}"/></p>
+        </div>
+
+        <p>If you have any questions or need further assistance, please feel free to contact us.</p>
+
+        <p>Best regards,<br/>The Reservation Team</p>
+
+        <div class="footer">
+            <p>Contact us at: <a href="mailto:eyavuz21@ku.edu.tr">eyavuz21@ku.edu.tr</a></p>
+        </div>
+    </div>
+</body>
+</html>

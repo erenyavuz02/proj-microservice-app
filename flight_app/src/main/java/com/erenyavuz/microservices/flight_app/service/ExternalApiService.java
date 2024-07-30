@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.reactive.function.client.WebClientResponseException;
 
-import com.erenyavuz.microservices.flight_app.dto.UserValidationResponse;
+import com.erenyavuz.microservices.flight_app.dto.UserDetails;
 import com.erenyavuz.microservices.flight_app.handler.exception.InvalidUserException;
 
 import reactor.core.publisher.Mono;
@@ -19,20 +19,20 @@ public class ExternalApiService {
 
 
 
-    public UserValidationResponse validateUser(String username, String password) {
+    public UserDetails validateUser(String username, String password) {
         if (username == null || password == null) {
             throw new IllegalArgumentException("Username and password cannot be null");
         }
 
-        String url = "http://localhost:8090/api/user/validate?username={username}&password={password}";
+        String url = "http://user:8090/api/user/validate?username={username}&password={password}";
 
         try {
-            Mono<UserValidationResponse> response = webClientBuilder
+            Mono<UserDetails> response = webClientBuilder
                 .build()
                 .get()
                 .uri(url, username, password)
                 .retrieve()
-                .bodyToMono(UserValidationResponse.class);
+                .bodyToMono(UserDetails.class);
 
             return response.block();
         } catch (WebClientResponseException ex) {

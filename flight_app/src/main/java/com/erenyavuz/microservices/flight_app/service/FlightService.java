@@ -4,7 +4,7 @@ import org.springframework.stereotype.Service;
 
 import com.erenyavuz.microservices.flight_app.dto.FlightConfirmation;
 import com.erenyavuz.microservices.flight_app.dto.FlightRequest;
-import com.erenyavuz.microservices.flight_app.dto.UserValidationResponse;
+import com.erenyavuz.microservices.flight_app.dto.UserDetails;
 import com.erenyavuz.microservices.flight_app.handler.exception.InvalidUserException;
 import com.erenyavuz.microservices.flight_app.repository.FlightRepository;
 
@@ -28,8 +28,8 @@ public class FlightService {
         }
 
 
-        UserValidationResponse response = externalApiService.validateUser(username, password);
-        if (!response.isValid()) {
+        UserDetails response = externalApiService.validateUser(username, password);
+        if (response == null) {
             throw new InvalidUserException("User not found");
         }
         
