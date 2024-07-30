@@ -6,7 +6,7 @@ This is a demo project for me to grasp concepts of microservice architectures, S
 
 The following schema represents the microservice architecture of this project:
 
-![Microservice Architecture](https://github.com/erenyavuz02/proj-microservice-app/blob/main/resources/images/microservice_demo_project.png?raw=true)
+![Microservice Architecture](https://github.com/erenyavuz02/proj-microservice-app/blob/main/resources/images/microservice_demo_project_new.png?raw=true)
 
 ## Request Mapping
 
