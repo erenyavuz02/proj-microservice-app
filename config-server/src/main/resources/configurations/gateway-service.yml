@@ -1,0 +1,25 @@
+spring:
+    cloud:
+        gateway:
+            routes:
+                - id: user_app
+                  uri: lb://user-app
+                  predicates:
+                    - Path=/api/user/**
+
+                - id: flight_app
+                  uri: lb://flight-app
+                  predicates:
+                    - Path=/api/flight/**
+
+                - id: reservation_app
+                  uri: lb://reservation-app
+                  predicates:
+                    - Path=/api/reservation/**
+            discovery:
+                locator:
+                    enabled: true
+
+
+server:
+    port: 8222
