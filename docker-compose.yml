@@ -14,9 +14,6 @@ services:
     # Use a volume to persist the database data
     volumes:
       - db:/var/lib/mysql
-    # Expose the port 3306 for MySQL
-    ports:
-      - 3306:3306
     # Add the service to the 'microservices-net' network
     networks:
       - microservices-net
@@ -45,8 +42,6 @@ services:
     environment:
       ZOOKEEPER_CLIENT_PORT: 2181
       ZOOKEEPER_TICK_TIME: 2000
-    ports:
-      - 2181:2181
     networks:
       - microservices-net
 
@@ -54,8 +49,6 @@ services:
     image: confluentinc/cp-kafka:7.4.4
     depends_on:
       - zookeeper
-    ports:
-      - 29092:29092
     environment:
       KAFKA_BROKER_ID: 1
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
@@ -69,8 +62,6 @@ services:
   config:
     image: configserver:latest
     container_name: configserver
-    ports: 
-      - 8888:8888
     networks:
       - microservices-net
 
@@ -90,17 +81,12 @@ services:
   mail-dev:
     image: maildev/maildev
     container_name: maildev
-    ports:
-      - 1080:1080
-      - 1025:1025
     networks:
       - microservices-net
 
   user:
     image: user_app
     container_name: user
-    ports:
-      - 8090:8090
     networks:
       - microservices-net
     depends_on:
@@ -110,8 +96,6 @@ services:
   flight:
     container_name: flight
     image: flight_app
-    ports:
-      - 8092:8092
     networks:
       - microservices-net
     depends_on:
@@ -121,8 +105,6 @@ services:
   reservation:
     container_name: reservation
     image: reservation_app
-    ports:
-      - 8091:8091
     networks:
       - microservices-net
     depends_on:
@@ -132,13 +114,25 @@ services:
   notification:
     container_name: notification
     image: notification_app
-    ports:
-      - 8093:8093
     networks:
       - microservices-net
     depends_on:
       - config
       - discovery
+
+  gateway:
+    container_name: gateway
+    image: gateway-service
+    ports:
+      - 8222:8222
+    networks:
+      - microservices-net
+    depends_on:
+      - user
+      - flight
+      - reservation
+      - notification
+
 
 networks:
   microservices-net:

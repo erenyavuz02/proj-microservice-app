@@ -3,17 +3,17 @@ spring:
         gateway:
             routes:
                 - id: user_app
-                  uri: lb://user-app
+                  uri: http://user:8090
                   predicates:
                     - Path=/api/user/**
 
                 - id: flight_app
-                  uri: lb://flight-app
+                  uri: http://flight:8092
                   predicates:
                     - Path=/api/flight/**
 
                 - id: reservation_app
-                  uri: lb://reservation-app
+                  uri: http://reservation:8091
                   predicates:
                     - Path=/api/reservation/**
             discovery:
